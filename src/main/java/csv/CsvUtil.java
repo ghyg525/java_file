@@ -43,10 +43,10 @@ public class CsvUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static boolean create(String fileName, List<List<String>> contentList) throws Exception{
+	public static boolean create(String fileName, List<List<Object>> contentList) throws Exception{
 		CSVPrinter printer = new CSVPrinter(new FileWriter(fileName), CSVFormat.DEFAULT);
-		for(List<String> recordList : contentList){
-			for(String str : recordList){
+		for(List<Object> recordList : contentList){
+			for(Object str : recordList){
 				printer.print(str);
 			}
 			printer.println();
@@ -61,8 +61,6 @@ public class CsvUtil {
 		String path = ClassLoader.getSystemResource("").getPath();
 		System.out.println(path);
 		System.out.println(CsvUtil.pares(path + "1.csv"));
-		
-		CsvUtil.create(path + "2.csv", CsvUtil.pares(path + "1.csv"));
 	}
 	
 }
