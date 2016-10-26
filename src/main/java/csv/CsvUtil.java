@@ -56,4 +56,13 @@ public class CsvUtil {
 		return true;
 	}
 	
+	
+	public static void main(String[] args) throws Exception {
+		String path = ClassLoader.getSystemResource("").getPath();
+		System.out.println(path);
+		System.out.println(CsvUtil.pares(path + "1.csv"));
+		
+		CsvUtil.create(path + "2.csv", CsvUtil.pares(path + "1.csv"));
+	}
+	
 }
