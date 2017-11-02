@@ -22,22 +22,10 @@
 			<version>1.9.6</version>
 		</dependency>
 
-		<dependency><!-- pdf -->
-			<groupId>com.itextpdf</groupId>
-			<artifactId>itext-pdfa</artifactId>
-			<version>5.5.7</version>
-		</dependency>
-		
 		<dependency><!-- csv -->
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
 			<version>1.4</version>
-		</dependency>
-		
-		<dependency><!-- excel -->
-			<groupId>jexcelapi</groupId>
-			<artifactId>jxl</artifactId>
-			<version>2.6</version>
 		</dependency>
 
 	</dependencies>
