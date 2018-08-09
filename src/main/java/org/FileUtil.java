@@ -1,15 +1,39 @@
-package file;
+package org;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
- * 删除文件及目录工具类
- * @author YangJie
- * @createTime 2014年12月31日 下午5:52:49
+ * 文件压缩工具类
+ * @author YangJie [2018年8月9日 下午5:25:24]
  */
-public class DeleteFile {
+public class FileUtil {
 
-	
+	/**
+	 * 创建文件
+	 * @param filePath
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 */
+	public static File createFile(String filePath, String fileName) throws IOException{
+		// 创建目录
+		File dir = new File(filePath);
+		if (!dir.exists()) {	// 如果目录不存在, 创建
+			dir.mkdirs();
+		}
+		// 创建文件
+		if(fileName != null){
+			File file = new File(dir, fileName);
+			if (!file.exists()) {	// 如果文件不存在, 创建
+				file.createNewFile();	// 创建文件
+			}
+			return file;
+		}
+		// 只创建目录
+		return dir;
+	}
+
 	/**  
 	 *  根据路径删除指定的目录或文件，无论存在与否  
 	 *@param sPath  要删除的目录或文件  
@@ -81,6 +105,5 @@ public class DeleteFile {
 	        return false;   
 	    }   
 	}  
-
 	
 }
