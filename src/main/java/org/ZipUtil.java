@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Enumeration;
-import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -103,14 +102,14 @@ public class ZipUtil {
     	Enumeration<? extends ZipEntry> entrys = zipFile.entries();
     	while (entrys.hasMoreElements()) {
     		ZipEntry zipEntry = entrys.nextElement();
-    		String fileName = zipEntry.getName();
-    		System.out.println(fileName);
+    		String pathName = zipEntry.getName().replace('\\', '/'); // 处理windws
     		if (zipEntry.isDirectory()) {
-    			new File(path + fileName).mkdirs();
+				new File(path + pathName).mkdirs();
     		}else {
-    			dir(path, fileName); // 创建文件上级目录
-    			fileName = fileName.contains("/") ? fileName.substring(fileName.lastIndexOf("/") + 1) : fileName;
-    			File outputFile = new File(path + fileName);
+				String dir = path + (pathName.contains("/") ? pathName.substring(0, pathName.lastIndexOf("/") + 1) : "");
+				String fileName = pathName.contains("/") ? pathName.substring(pathName.lastIndexOf("/") + 1) : pathName;
+				new File(dir).mkdirs(); // 创建各级文件夹
+				File outputFile = new File(dir + fileName);
     			OutputStream outputStream = new FileOutputStream(outputFile);
     			InputStream inputStream = zipFile.getInputStream(zipEntry);
     			int len;
@@ -126,27 +125,5 @@ public class ZipUtil {
     	zipFile.close();
     }
 	
-    /**
-     * 创建解压目录
-     * @param path
-     * @param name
-     */
-	private static void dir(String path, String name) {
-		File file = new File(path);
-		if (!file.exists()) {
-			file.mkdir();
-		}
-		if(Objects.nonNull(name) && !name.trim().isEmpty()) {
-			name = name.replace('\\', '/');
-			name = name.substring(0, name.lastIndexOf("/"));
-			for(String s : name.split("/")) {
-				file = new File(path + File.separator + s);
-				if (!file.exists()) {
-					file.mkdir();
-				}
-				path += File.separator + s;
-			}
-		}
-	}
 
 }
